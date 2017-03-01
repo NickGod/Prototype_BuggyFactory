@@ -18,9 +18,6 @@ public class hand : MonoBehaviour {
 
     Transform _grabbedParent;
     Transform _grabbed;
-    
-    public Transform SingleTestSpot;
-    public Transform FlowTestSpot;
         
     static Transform _singleTestTrf = null;
     static Transform[] _flowTestTrfs = new Transform[3];  
@@ -42,12 +39,9 @@ public class hand : MonoBehaviour {
     //LineRenderer lineRender;
 
     void Start() {
-        _singleTestTrf = SingleTestSpot;
-        int i = 0;
-        foreach(Transform child in FlowTestSpot) {
-            Debug.Log("Child : " + child.name);
-            _flowTestTrfs[i++] = child;
-        }
+        _flowTestTrfs[0] = null;
+        _flowTestTrfs[1] = null;
+        _flowTestTrfs[2] = null;
     }
 
     void Update() {
@@ -184,21 +178,34 @@ public class hand : MonoBehaviour {
             //TODO: destroy the stuff existing previously
             module _resultModule = _result.GetComponent<module>();
             if (_resultModule._mySpot == module.SpotType.SingleTest) {
-                Destroy(_singleTestTrf);
+                if (_singleTestTrf) {
+                    Destroy(_singleTestTrf);
+                    _singleTestTrf = null;
+                }
                 _singleTestTrf = _result;
 
             } else if (_resultModule._mySpot == module.SpotType.FlowTest) {
                 switch(_resultModule._myType) {
                     case module.ModuleType.type1:
-                        Destroy(_flowTestTrfs[0]);
+                        if (_flowTestTrfs[0]) {
+                            Destroy(_flowTestTrfs[0]);
+                            _flowTestTrfs[0] = null;
+                        }
                         _flowTestTrfs[0] = _result;
                         break;
                     case module.ModuleType.type2:
-                        Destroy(_flowTestTrfs[1]);
+                        if (_flowTestTrfs[1]) {
+                            Destroy(_flowTestTrfs[1]);
+                            _flowTestTrfs[1] = null;
+                        }
                         _flowTestTrfs[1] = _result;
                         break;
                     case module.ModuleType.type3:
-                        Destroy(_flowTestTrfs[2]);
+
+                        if (_flowTestTrfs[2]) {
+                            Destroy(_flowTestTrfs[2]);
+                            _flowTestTrfs[2] = null;
+                        }
                         _flowTestTrfs[2] = _result;
                         break;
                     default:
