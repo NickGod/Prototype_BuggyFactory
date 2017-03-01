@@ -14,11 +14,14 @@ public class hand : MonoBehaviour {
     static float _inventoryTime = 0.2f;
     static bool _isInventory = false;
 
-    public List<Transform> trfList = new List<Transform>();
+    List<Transform> trfList = new List<Transform>();
 
     Transform _grabbedParent;
     Transform _grabbed;
-
+    
+    public Transform SingleTestSpot;
+    public Transform FlowTestSpot;
+        
     static Transform _singleTestTrf = null;
     static Transform[] _flowTestTrfs = new Transform[3];  
 
@@ -39,7 +42,12 @@ public class hand : MonoBehaviour {
     //LineRenderer lineRender;
 
     void Start() {
-        //lineRender = GetComponent<LineRenderer>();
+        _singleTestTrf = SingleTestSpot;
+        int i = 0;
+        foreach(Transform child in FlowTestSpot) {
+            Debug.Log("Child : " + child.name);
+            _flowTestTrfs[i++] = child;
+        }
     }
 
     void Update() {

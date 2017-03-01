@@ -44,7 +44,7 @@ public class module : MonoBehaviour {
 
     public Transform OnRelease(hand _playerHand) {
         transform.localScale = Vector3.one;
-        if (transform.position.x < -0.2f) {
+        if (transform.position.z < -0.2f) {
             _playerHand.GetOutOfList(gameObject.transform);
             Debug.Log("Goes to single test.");
             transform.position = singleTest.position;
