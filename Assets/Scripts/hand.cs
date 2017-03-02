@@ -179,7 +179,7 @@ public class hand : MonoBehaviour {
             module _resultModule = _result.GetComponent<module>();
             if (_resultModule._mySpot == module.SpotType.SingleTest) {
                 if (_singleTestTrf) {
-                    Destroy(_singleTestTrf);
+                    Destroy(_singleTestTrf.gameObject);
                     _singleTestTrf = null;
                 }
                 _singleTestTrf = _result;
@@ -188,14 +188,14 @@ public class hand : MonoBehaviour {
                 switch(_resultModule._myType) {
                     case module.ModuleType.type1:
                         if (_flowTestTrfs[0]) {
-                            Destroy(_flowTestTrfs[0]);
+                            Destroy(_flowTestTrfs[0].gameObject);
                             _flowTestTrfs[0] = null;
                         }
                         _flowTestTrfs[0] = _result;
                         break;
                     case module.ModuleType.type2:
                         if (_flowTestTrfs[1]) {
-                            Destroy(_flowTestTrfs[1]);
+                            Destroy(_flowTestTrfs[1].gameObject);
                             _flowTestTrfs[1] = null;
                         }
                         _flowTestTrfs[1] = _result;
@@ -203,7 +203,7 @@ public class hand : MonoBehaviour {
                     case module.ModuleType.type3:
 
                         if (_flowTestTrfs[2]) {
-                            Destroy(_flowTestTrfs[2]);
+                            Destroy(_flowTestTrfs[2].gameObject);
                             _flowTestTrfs[2] = null;
                         }
                         _flowTestTrfs[2] = _result;
