@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class module : MonoBehaviour {
     public enum ModuleType {
-        type1,
-        type2,
-        type3
+        Tire,
+        Door,
+        Body
     };
     public enum SpotType {
         Module,
@@ -55,9 +55,8 @@ public class module : MonoBehaviour {
 
     public Transform OnRelease(hand _playerHand) {
         transform.rotation = Quaternion.identity;
-        if (transform.position.z < -0.2f) {
+        if (transform.position.z < 0.0f) {
             _playerHand.GetOutOfList(gameObject.transform);
-            Debug.Log("Goes to single test.");
             transform.position = singleTest.position;
             _mySpot = SpotType.SingleTest;
             return transform;
@@ -65,13 +64,13 @@ public class module : MonoBehaviour {
             _playerHand.GetOutOfList(gameObject.transform);
             Debug.Log("Goes to flow test.");
             switch(_myType) {
-                case ModuleType.type1:
+                case ModuleType.Tire:
                     transform.position = flowTest[0].position;
                     break;
-                case ModuleType.type2:
+                case ModuleType.Door:
                     transform.position = flowTest[1].position;
                     break;
-                case ModuleType.type3:
+                case ModuleType.Body:
                     transform.position = flowTest[2].position;
                     break;
                 default:
@@ -80,6 +79,17 @@ public class module : MonoBehaviour {
             }
             _mySpot = SpotType.FlowTest;
             return transform;
+        }
+    }
+
+    public void SetMyPos(Transform trf) {
+        ModuleType inType = trf.GetComponent<module>()._myType;
+        if (inType == ModuleType.Tire) {
+            trf.position = flowTest[0].position;
+        } else if (inType == ModuleType.Door) {
+            trf.position = flowTest[1].position;
+        } else if (inType == ModuleType.Body) {
+            trf.position = flowTest[2].position;
         }
     }
 

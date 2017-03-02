@@ -35,14 +35,26 @@ public class hand : MonoBehaviour {
     public Transform _flowButton;
     // Update is called once per frame
 
+
+    public Transform DefaultTire;
+    public Transform DefaultDoor;
+    public Transform DefaultBody;
     //right index finger
     //static bool isIndexFound = false;
     //LineRenderer lineRender;
 
     void Start() {
-        _flowTestTrfs[0] = null;
-        _flowTestTrfs[1] = null;
-        _flowTestTrfs[2] = null;
+        if (isRightHand) {
+            _flowTestTrfs[0] = Instantiate(DefaultTire.gameObject).transform;
+            _flowTestTrfs[1] = Instantiate(DefaultDoor.gameObject).transform;
+            _flowTestTrfs[2] = Instantiate(DefaultBody.gameObject).transform;
+            _flowTestTrfs[0].gameObject.SetActive(true);
+            _flowTestTrfs[1].gameObject.SetActive(true);
+            _flowTestTrfs[2].gameObject.SetActive(true);
+            _flowTestTrfs[0].GetComponent<module>().SetMyPos(_flowTestTrfs[0]);
+            _flowTestTrfs[1].GetComponent<module>().SetMyPos(_flowTestTrfs[1]);
+            _flowTestTrfs[2].GetComponent<module>().SetMyPos(_flowTestTrfs[2]);
+        }
     }
 
     void Update() {
@@ -55,23 +67,23 @@ public class hand : MonoBehaviour {
 
 
             //calling inventory based on left hand index
-            if (IsInventoryUp()) {
-                _inventoryTimer += Time.deltaTime;
-            } else {
-                _inventoryTimer = 0.0f;
-                if (_isInventory) {
-                    //TODO: inventory off animation and related mehanics here
-                    transform.GetChild(0).gameObject.SetActive(false);
-                }
-                _isInventory = false;
-            }
-            if (_inventoryTimer >= _inventoryTime && !_isInventory) {
-                // this function only call once for each index up
-                // there is up time for inventory to appear
-                //TODO: inventory on animation and related mechanics here
-                _isInventory = true;
-                transform.GetChild(0).gameObject.SetActive(true);
-            }
+            //if (IsInventoryUp()) {
+            //    _inventoryTimer += Time.deltaTime;
+            //} else {
+            //    _inventoryTimer = 0.0f;
+            //    if (_isInventory) {
+            //        //TODO: inventory off animation and related mehanics here
+            //        transform.GetChild(0).gameObject.SetActive(false);
+            //    }
+            //    _isInventory = false;
+            //}
+            //if (_inventoryTimer >= _inventoryTime && !_isInventory) {
+            //    // this function only call once for each index up
+            //    // there is up time for inventory to appear
+            //    //TODO: inventory on animation and related mechanics here
+            //    _isInventory = true;
+            //    transform.GetChild(0).gameObject.SetActive(true);
+            //}
         } else {
             //for right hand
             //grabbing
@@ -193,22 +205,21 @@ public class hand : MonoBehaviour {
             } else if (_resultModule._mySpot == module.SpotType.FlowTest) {
                 _flowButton.GetComponent<button>().SetFlowTest(false);
                 switch(_resultModule._myType) {
-                    case module.ModuleType.type1:
+                    case module.ModuleType.Tire:
                         if (_flowTestTrfs[0]) {
                             Destroy(_flowTestTrfs[0].gameObject);
                             _flowTestTrfs[0] = null;
                         }
                         _flowTestTrfs[0] = _result;
                         break;
-                    case module.ModuleType.type2:
+                    case module.ModuleType.Door:
                         if (_flowTestTrfs[1]) {
                             Destroy(_flowTestTrfs[1].gameObject);
                             _flowTestTrfs[1] = null;
                         }
                         _flowTestTrfs[1] = _result;
                         break;
-                    case module.ModuleType.type3:
-
+                    case module.ModuleType.Body:
                         if (_flowTestTrfs[2]) {
                             Destroy(_flowTestTrfs[2].gameObject);
                             _flowTestTrfs[2] = null;

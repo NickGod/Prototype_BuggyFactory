@@ -73,13 +73,20 @@ public class button : MonoBehaviour {
             _assembledRate = 0.0f;
             int i = 0;
             foreach (Transform trf in trfs) {
-                Transform me_clone = Instantiate(trf.gameObject).transform;
+                Transform trfson = trf.GetChild(0);
+                Transform me_clone = Instantiate(trfson.gameObject).transform;
                 me_clone.parent = null;
-                me_clone.position = trf.position;
-                me_clone.rotation = trf.rotation;
-                me_clone.localScale = trf.localScale;
+                me_clone.position = trfson.position;
+                me_clone.rotation = trfson.rotation;
+                me_clone.localScale = trfson.localScale;
                 me_clone.GetComponent<module>()._myType = trf.gameObject.GetComponent<module>()._myType;
                 me_clone.GetComponent<module>()._myrate = trf.gameObject.GetComponent<module>()._myrate;
+                Transform _parent = trfson;
+                while (_parent.parent != null) {
+                    me_clone.localScale *= _parent.parent.localScale.x;
+                    _parent = _parent.parent;
+                }
+                me_clone.gameObject.SetActive(true);
                 if (_flowTestTrfs[i]) {
                     Destroy(_flowTestTrfs[i].gameObject);
                     _flowTestTrfs[i] = null;
@@ -101,6 +108,7 @@ public class button : MonoBehaviour {
             }
             //TODO: show rate on something
             //rate = _assembledRate / 3.0f;
+            Debug.Log("Test: " + _assembledRate / 3.0f);
             _isFlowTestDone = true;
             _isFlowTest = false;
             _isAssembed = false;
