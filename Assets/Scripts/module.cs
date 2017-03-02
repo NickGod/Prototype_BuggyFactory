@@ -17,6 +17,8 @@ public class module : MonoBehaviour {
 
     public Transform FlowButton;
 
+    Vector3 originSize = Vector3.one * 8;
+
     public ModuleType _myType;
     public SpotType _mySpot = SpotType.Module;
     public Transform singleTest;
@@ -54,6 +56,7 @@ public class module : MonoBehaviour {
     }
 
     public Transform OnRelease(hand _playerHand) {
+        transform.localScale = originSize;
         transform.rotation = Quaternion.identity;
         if (transform.position.z < 0.0f) {
             _playerHand.GetOutOfList(gameObject.transform);
