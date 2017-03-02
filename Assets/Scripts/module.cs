@@ -13,6 +13,10 @@ public class module : MonoBehaviour {
         SingleTest,
         FlowTest
     }
+    public float _myrate;
+
+    public Transform FlowButton;
+
     public ModuleType _myType;
     public SpotType _mySpot = SpotType.Module;
     public Transform singleTest;
@@ -25,6 +29,12 @@ public class module : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    private void OnTriggerEnter(Collider other) {
+        if (other.gameObject.tag == Tags.AssembleSpot) {
+            FlowButton.GetComponent<button>().ReachAssemblySpot(transform);
+        }
+    }
 
     public Transform OnGrab() {
         Transform me_clone = Instantiate(gameObject).transform;
@@ -39,6 +49,7 @@ public class module : MonoBehaviour {
         }
         //initialize attribute value
         me_clone.GetComponent<module>()._myType = _myType;
+        me_clone.GetComponent<module>()._myrate = _myrate;
         return me_clone;
     }
 

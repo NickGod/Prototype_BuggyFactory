@@ -32,6 +32,7 @@ public class hand : MonoBehaviour {
     //static bool _onResizing = false;
 
     public bool isRightHand;
+    public Transform _flowButton;
     // Update is called once per frame
 
     //right index finger
@@ -116,6 +117,11 @@ public class hand : MonoBehaviour {
     void OnTriggerEnter(Collider other) {
         if (other.gameObject.tag == Tags.Grabbable && !trfList.Contains(other.transform)) {
             trfList.Add(other.transform);
+        } else if (other.gameObject.tag == Tags.Button) {
+            //TODO: button down anim
+            Debug.Log("Click the button");
+            other.gameObject.GetComponent<button>().SetFlowTestTrfs(_flowTestTrfs);
+            other.gameObject.GetComponent<button>().SetFlowTest(true);
         }
     }
 
@@ -183,8 +189,9 @@ public class hand : MonoBehaviour {
                     _singleTestTrf = null;
                 }
                 _singleTestTrf = _result;
-
+                //TODO: update single test success rate on something
             } else if (_resultModule._mySpot == module.SpotType.FlowTest) {
+                _flowButton.GetComponent<button>().SetFlowTest(false);
                 switch(_resultModule._myType) {
                     case module.ModuleType.type1:
                         if (_flowTestTrfs[0]) {
