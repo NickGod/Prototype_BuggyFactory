@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class button : MonoBehaviour {
 
@@ -11,6 +12,8 @@ public class button : MonoBehaviour {
     bool _isAssembed = false;
     bool _isFlowTestDone = false;
     public Transform _assembledModule;
+    [SerializeField] private Text m_CurrentSuccessRate;
+
     Transform _assembledModuleCopy;
     float _assembledRate = 0;
     int _reachCount = 0;
@@ -108,6 +111,10 @@ public class button : MonoBehaviour {
             }
             //TODO: show rate on something
             //rate = _assembledRate / 3.0f;
+            float rate = _assembledRate / 3.0f;
+            rate *= 100;
+            // update the UI;
+            m_CurrentSuccessRate.text = "Success Rate: " + rate.ToString() + "%";
             Debug.Log("Test: " + _assembledRate / 3.0f);
             _isFlowTestDone = true;
             _isFlowTest = false;
