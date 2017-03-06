@@ -802,7 +802,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _myrate: 0.75
-  FlowButton: {fileID: 2071458312}
   _myType: 2
   _mySpot: 2
   singleTest: {fileID: 645892228}
@@ -3193,7 +3192,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _myrate: 0
-  FlowButton: {fileID: 0}
   _myType: 0
   _mySpot: 0
   singleTest: {fileID: 0}

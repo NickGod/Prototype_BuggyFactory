@@ -15,7 +15,7 @@ public class module : MonoBehaviour {
     }
     public float _myrate;
 
-    public Transform FlowButton;
+    private Transform FlowButton;
 
     Vector3 originSize = Vector3.one * 8;
 
@@ -25,6 +25,7 @@ public class module : MonoBehaviour {
     public Transform[] flowTest = new Transform[3];
 	// Use this for initialization
 	void Start () {
+        FlowButton = GameObject.FindWithTag("Button").transform;
     }
 	
 	// Update is called once per frame
