@@ -7,4 +7,5 @@ public class Tags : MonoBehaviour {
     public static string Button = "Button";
     public static string AssembleSpot = "AssembleSpot";
     public static string AssembleModule = "AssembleModule";
+    public static string SingleTestButton = "SingleTestButton";
 }

@@ -12,7 +12,9 @@ public class button : MonoBehaviour {
     bool _isAssembed = false;
     bool _isFlowTestDone = false;
     public Transform _assembledModule;
+    private Transform _singleTestModule;
     [SerializeField] private Text m_CurrentSuccessRate;
+    [SerializeField] private Text m_SingleTestSuccessRate;
 
     Transform _assembledModuleCopy;
     float _assembledRate = 0;
@@ -141,4 +143,22 @@ public class button : MonoBehaviour {
             _reachCount++;
         }
     }
-}
+
+    public void ShowSingleModuleRate(Transform _singleModule) {
+        if (_singleModule == null) {
+            m_SingleTestSuccessRate.text = "Module Test Failed... Try place an module onto testing field";
+
+        }
+        _singleTestModule = _singleModule;
+        float rate = _singleModule.gameObject.GetComponent<module>().GetRate();
+        if (rate > 0.0f) {
+            //update single test UI accordingly...
+            rate *= 100;
+            // update the UI;
+            m_SingleTestSuccessRate.text = "Module Success Rate: " + rate.ToString() + "%";
+            Debug.Log("Single Test: " + rate);
+        } else {
+            m_SingleTestSuccessRate.text = "Module Test Failed...";
+        }
+    }
+ }

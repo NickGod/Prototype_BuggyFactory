@@ -32,6 +32,7 @@ public class hand : MonoBehaviour {
     //static bool _onResizing = false;
 
     public bool isRightHand;
+    public Transform _singleTestButton;
     public Transform _flowButton;
     // Update is called once per frame
 
@@ -134,6 +135,9 @@ public class hand : MonoBehaviour {
             Debug.Log("Click the button");
             other.gameObject.GetComponent<button>().SetFlowTestTrfs(_flowTestTrfs);
             other.gameObject.GetComponent<button>().SetFlowTest(true);
+        } else if (other.gameObject.tag == Tags.SingleTestButton) {
+            Debug.Log("Click the single test button");
+            other.gameObject.GetComponent<button>().ShowSingleModuleRate(_singleTestTrf);
         }
     }
 
@@ -201,6 +205,7 @@ public class hand : MonoBehaviour {
                     _singleTestTrf = null;
                 }
                 _singleTestTrf = _result;
+                //_singleTestButton.GetComponent<button>().ShowSingleModuleRate(_singleTestTrf);
                 //TODO: update single test success rate on something
             } else if (_resultModule._mySpot == module.SpotType.FlowTest) {
                 _flowButton.GetComponent<button>().SetFlowTest(false);

@@ -16,6 +16,7 @@ public class module : MonoBehaviour {
     public float _myrate;
 
     private Transform FlowButton;
+    private Transform SingleTestButton;
 
     Vector3 originSize = Vector3.one * 8;
 
@@ -26,6 +27,7 @@ public class module : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         FlowButton = GameObject.FindWithTag("Button").transform;
+        SingleTestButton = GameObject.FindWithTag("SingleTestButton").transform;
     }
 	
 	// Update is called once per frame
@@ -40,6 +42,7 @@ public class module : MonoBehaviour {
     }
 
     public Transform OnGrab() {
+        // clone this game object so you can actually grab
         Transform me_clone = Instantiate(gameObject).transform;
         me_clone.parent = null;
         me_clone.position = transform.position;
@@ -60,9 +63,12 @@ public class module : MonoBehaviour {
         transform.localScale = originSize;
         transform.rotation = Quaternion.identity;
         if (transform.position.z < 0.0f) {
+            // delete from hand
             _playerHand.GetOutOfList(gameObject.transform);
+            // attach to single test position
             transform.position = singleTest.position;
             _mySpot = SpotType.SingleTest;
+
             return transform;
         } else {
             _playerHand.GetOutOfList(gameObject.transform);
@@ -99,5 +105,9 @@ public class module : MonoBehaviour {
 
     public void move_towards(Vector3 taret_pos) {
         transform.position += 0.05f * (taret_pos - transform.position);
+    }
+
+    public float GetRate() {
+        return _myrate;
     }
 }
