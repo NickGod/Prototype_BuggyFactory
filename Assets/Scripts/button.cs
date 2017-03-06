@@ -147,7 +147,7 @@ public class button : MonoBehaviour {
     public void ShowSingleModuleRate(Transform _singleModule) {
         if (_singleModule == null) {
             m_SingleTestSuccessRate.text = "Module Test Failed... Try place an module onto testing field";
-
+            return;
         }
         _singleTestModule = _singleModule;
         float rate = _singleModule.gameObject.GetComponent<module>().GetRate();
