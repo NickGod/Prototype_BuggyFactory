@@ -44,6 +44,8 @@ public class hand : MonoBehaviour {
     //static bool isIndexFound = false;
     //LineRenderer lineRender;
 
+    private bool TestButtonClicked = false;
+    private bool SingleTestButtonClicked = false;
     void Start() {
         if (isRightHand) {
             _flowTestTrfs[0] = Instantiate(DefaultTire.gameObject).transform;
@@ -133,10 +135,12 @@ public class hand : MonoBehaviour {
         } else if (other.gameObject.tag == Tags.Button) {
             //TODO: button down anim
             Debug.Log("Click the button");
+            other.gameObject.GetComponent<button>().PressButton();
             other.gameObject.GetComponent<button>().SetFlowTestTrfs(_flowTestTrfs);
             other.gameObject.GetComponent<button>().SetFlowTest(true);
         } else if (other.gameObject.tag == Tags.SingleTestButton) {
             Debug.Log("Click the single test button");
+            other.gameObject.GetComponent<button>().PressButton();
             other.gameObject.GetComponent<button>().ShowSingleModuleRate(_singleTestTrf);
         }
     }
@@ -144,6 +148,8 @@ public class hand : MonoBehaviour {
     void OnTriggerExit(Collider other) {
         if (other.gameObject.tag == Tags.Grabbable) {
             trfList.Remove(other.transform);
+        } else if (other.gameObject.tag == Tags.Button || other.gameObject.tag == Tags.SingleTestButton) {
+            other.gameObject.GetComponent<button>().ReleaseButton();
         }
     }
 

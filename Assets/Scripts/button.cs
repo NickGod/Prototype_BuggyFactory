@@ -161,4 +161,13 @@ public class button : MonoBehaviour {
             m_SingleTestSuccessRate.text = "Module Test Failed...";
         }
     }
+
+    public void PressButton() {
+        gameObject.transform.position -= new Vector3(0, 0.015f, 0);
+    }
+
+    public void ReleaseButton() {
+        gameObject.transform.position += new Vector3(0, 0.015f, 0);
+
+    }
  }
