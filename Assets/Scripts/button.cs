@@ -15,6 +15,10 @@ public class button : MonoBehaviour {
     private Transform _singleTestModule;
     [SerializeField] private Text m_CurrentSuccessRate;
     [SerializeField] private Text m_SingleTestSuccessRate;
+    [SerializeField] private AudioClip m_SuccessSound;
+    [SerializeField] private AudioClip m_FailureSound;
+    [SerializeField] private AudioSource m_Audio;
+
 
     Transform _assembledModuleCopy;
     float _assembledRate = 0;
@@ -114,6 +118,15 @@ public class button : MonoBehaviour {
             //TODO: show rate on something
             //rate = _assembledRate / 3.0f;
             float rate = _assembledRate / 3.0f;
+
+            if (rate < 0.9f) {
+                m_Audio.clip = m_FailureSound;
+            } else {
+                m_Audio.clip = m_SuccessSound;
+            }
+
+            m_Audio.Play();
+
             rate *= 100;
             // update the UI;
             m_CurrentSuccessRate.text = "Success Rate: " + rate.ToString() + "%";
@@ -153,8 +166,15 @@ public class button : MonoBehaviour {
         float rate = _singleModule.gameObject.GetComponent<module>().GetRate();
         if (rate > 0.0f) {
             //update single test UI accordingly...
+            if (rate < 0.9f) {
+                m_Audio.clip = m_FailureSound;
+            } else {
+                m_Audio.clip = m_SuccessSound;
+            }
+
             rate *= 100;
             // update the UI;
+            m_Audio.Play();
             m_SingleTestSuccessRate.text = "Module Success Rate: " + rate.ToString() + "%";
             Debug.Log("Single Test: " + rate);
         } else {
