@@ -129,7 +129,13 @@ public class button : MonoBehaviour {
 
             rate *= 100;
             // update the UI;
-            m_CurrentSuccessRate.text = "Success Rate: " + rate.ToString() + "%";
+            string result;
+            if (rate >= 95.0f) {
+                result = "Success";
+            }  else {
+                result = "fail";
+            }
+            m_CurrentSuccessRate.text = result;
             Debug.Log("Test: " + _assembledRate / 3.0f);
             _isFlowTestDone = true;
             _isFlowTest = false;
@@ -175,7 +181,15 @@ public class button : MonoBehaviour {
             rate *= 100;
             // update the UI;
             m_Audio.Play();
-            m_SingleTestSuccessRate.text = "Module Success Rate: " + rate.ToString() + "%";
+
+            string result;
+            if (rate >= 95.0f) {
+                result = "Success";
+            } else {
+                result = "fail";
+            }
+
+            m_SingleTestSuccessRate.text = result;
             Debug.Log("Single Test: " + rate);
         } else {
             m_SingleTestSuccessRate.text = "Module Test Failed...";
