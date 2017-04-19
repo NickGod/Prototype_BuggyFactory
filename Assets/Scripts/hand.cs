@@ -178,21 +178,18 @@ public class hand : MonoBehaviour {
     bool IsFist() {
         OVRInput.Button indexFinger;
         OVRInput.Button middleFinger;
-
-        bool thumb;
+        
         if (isRightHand) {
             indexFinger = OVRInput.Button.SecondaryIndexTrigger;
             middleFinger = OVRInput.Button.SecondaryHandTrigger;
-            thumb = OVRInput.Get(OVRInput.Touch.SecondaryThumbRest) || OVRInput.Get(OVRInput.Touch.One) || OVRInput.Get(OVRInput.Touch.Two);
         } else {
             indexFinger = OVRInput.Button.PrimaryIndexTrigger;
             middleFinger = OVRInput.Button.PrimaryHandTrigger;
-            thumb = OVRInput.Get(OVRInput.Touch.PrimaryThumbRest) || OVRInput.Get(OVRInput.Touch.Three) || OVRInput.Get(OVRInput.Touch.Four);
         }
         bool index = OVRInput.Get(indexFinger);
         bool middle = OVRInput.Get(middleFinger);
 
-        return index && middle && thumb;
+        return index && middle;
     }
 
     public Transform GetGrabbedParent() {
